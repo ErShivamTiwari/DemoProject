@@ -1,6 +1,7 @@
 package com.demo.demoproject.rest;
 
 import com.demo.demoproject.common.Coach;
+import com.demo.demoproject.common.DataBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,28 +9,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DemoController {
-    private Coach myCoach;
+//    private Coach myCoach;
 
-    private Coach myCoach2;
+    private DataBase dataBase;
+
     @Autowired
-
-    DemoController(
-            @Qualifier("baseBallCoach") Coach coach,
-            @Qualifier("baseBallCoach") Coach coach2
-            ) {
-        System.out.println("in demoController const "+ getClass().getSimpleName());
-        this.myCoach = coach;
-        this.myCoach2 = coach2;
+    public DemoController(DataBase dataBase){
+        this.dataBase = dataBase;
     }
 
-    @GetMapping("/Coach")
-    public String comment(){
-        return myCoach.getDailyWorkout();
+//    DemoController(@Qualifier("swimCoach") Coach coach)
+//    {
+//        this.myCoach = coach;
+//
+//    }
+
+//
+//    @GetMapping("/Coach")
+//    public String checkBeanScope(){
+//        return "null";
+//    }
+//
+//    @GetMapping("/try")
+//    public String swimCoachInstruction(){
+//        return myCoach.getDailyWorkout();
+//    }
+
+    @GetMapping("/db")
+    public int dunum(){
+
+        dataBase.setData(31,6,9);
+       int summ= dataBase.sum();
+       return summ;
     }
-    @GetMapping("/check")
-    public String check(){
-        return (myCoach==myCoach2)? "Dono same hai":"dono alag hai";
-//        output is No
-    }
+
 }
 
