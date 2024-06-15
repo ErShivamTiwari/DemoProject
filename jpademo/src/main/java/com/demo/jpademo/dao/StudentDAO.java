@@ -13,4 +13,12 @@ public interface StudentDAO {
     List<Student> getAllStudents();
 
     List<Student> getStudentsByName(String name);
+
+    void updateStudent(Student student);
+
+    void updateAllStudents(String stName);
+
+    void deleteStudentById(int id);
+
+    void deleteAllStudents();
 }

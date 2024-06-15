@@ -25,10 +25,29 @@ public class JpademoApplication {
 
 //			createStudent(studentDAO);
 //			getStudent(studentDAO);
-			getAllStudent(studentDAO);
-
+//			getAllStudent(studentDAO);
+//			doUpdateStudent(studentDAO);
+//			doUpdateAllStudent(studentDAO);
+//			deleteById(studentDAO);
+//			deleteAllData(studentDAO);
 		};
 	}
+
+	private void deleteAllData(StudentDAO studentDAO) {
+		studentDAO.deleteAllStudents();
+		System.out.println("All data deleted.");
+	}
+
+	private void deleteById(StudentDAO studentDAO) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("enter id which you want to delete");
+		int id = scanner.nextInt();
+		studentDAO.deleteStudentById(id);
+		System.out.println("Student deleted successfully");
+
+	}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,5 +98,36 @@ public class JpademoApplication {
 			System.out.println(student.toString());
 		}
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//below mentioned code is for updating the data from db only for single row.
+
+	private void doUpdateStudent(StudentDAO studentDAO) {
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("enter id = ");
+		int stId=scanner.nextInt();
+
+		Student st=studentDAO.getStudentById(stId);
+		System.out.println("enter first name = ");
+		st.setFirstName(scanner.next());
+		studentDAO.updateStudent(st);
+
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//below mentioned code is for updating the data from db only for all row.
+
+
+	private void doUpdateAllStudent(StudentDAO studentDAO) {
+
+		studentDAO.updateAllStudents("Hanumanji ramji");
+
+	}
+
+
 
 }

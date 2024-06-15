@@ -30,7 +30,7 @@ public class StudentDAOImpl implements StudentDAO {
         entityManager.persist(student);
 
     }
-    //code from entitymanager for deting single data from db
+    //code from entitymanager for geting single data from db
     public Student getStudentById(int id) {
         return entityManager.find(Student.class, id);
     }
@@ -52,7 +52,7 @@ public class StudentDAOImpl implements StudentDAO {
 
         //create query
 
-        TypedQuery<Student> getDetailsByName = entityManager.createQuery("from Student where firstName: theData", Student.class);
+        TypedQuery<Student> getDetailsByName = entityManager.createQuery("from Student where firstName=:theData", Student.class);
 
         //set query parameter
         getDetailsByName.setParameter("theData", name);
@@ -60,5 +60,32 @@ public class StudentDAOImpl implements StudentDAO {
         //return query result
 
         return getDetailsByName.getResultList();
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // below code is to update data for single row
+    @Transactional
+    public void updateStudent(Student theStudent) {
+        entityManager.merge(theStudent);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // below code is to update data for single row
+    @Transactional
+    public void updateAllStudents(String nameE) {
+
+        entityManager.createQuery("update Student set firstName=:dataFile").setParameter("dataFile", nameE).executeUpdate();
+
+    }
+
+    @Transactional
+    public void deleteStudentById(int id) {
+
+        Student student=entityManager.find(Student.class, id);
+
+        entityManager.remove(student);
+    }
+    @Transactional
+    public void deleteAllStudents() {
+        entityManager.createQuery("delete from Student").executeUpdate();
     }
 }
